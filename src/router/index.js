@@ -5,6 +5,7 @@ import Beleuchtung from '../views/Beleuchtung.vue';
 import Bewaesserung from '../views/Bewaesserung.vue';
 import Ventilation from '../views/Ventilation.vue';
 import Einstellungen from '../views/Einstellungen.vue';
+import Zeitreihen from '../views/Zeitreihen.vue';
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/einstellungen',
     name: 'Einstellungen',
     component: Einstellungen,
+  },
+  {
+    path: '/zeitreihen',
+    name: 'Zeitreihen',
+    component: Zeitreihen,
   },
 ];
 

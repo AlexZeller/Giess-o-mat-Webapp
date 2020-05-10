@@ -34,6 +34,12 @@
             </v-list-item-icon>
             <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item>
+          <v-list-item @click="drawer = false" :to="{ path: '/zeitreihen' }">
+            <v-list-item-icon>
+              <v-icon>mdi-chart-line</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Zeitreihen</v-list-item-title>
+          </v-list-item>
           <v-list-item @click="drawer = false" :to="{ path: '/beleuchtung' }">
             <v-list-item-icon>
               <v-icon>mdi-lightbulb</v-icon>

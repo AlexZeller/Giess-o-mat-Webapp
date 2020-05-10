@@ -3,14 +3,14 @@
     <v-container fluid>
       <v-btn
         @click="
-          irrigation = !irrigation;
+          irrigation_status = !irrigation_status;
           irrigationSocket();
         "
       >
-        <v-icon color="blue darken-2" v-if="irrigation == true"
+        <v-icon color="blue darken-2" v-if="irrigation_status == true"
           >mdi-water-pump</v-icon
         >
-        <v-icon v-if="irrigation == false">mdi-water-pump-off</v-icon>
+        <v-icon v-if="irrigation_status == false">mdi-water-pump-off</v-icon>
       </v-btn>
     </v-container>
   </div>
@@ -22,7 +22,7 @@
 export default {
   name: 'Bewaesserung',
   data: () => ({
-    irrigation: false,
+    irrigation_status: false,
   }),
   sockets: {
     connect() {
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     irrigationSocket() {
-      this.$socket.client.emit('irrigation', this.irrigation);
+      this.$socket.client.emit('irrigation', this.irrigation_status);
     },
   },
 };

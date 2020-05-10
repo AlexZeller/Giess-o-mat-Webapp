@@ -3,12 +3,12 @@
     <v-container fluid>
       <v-btn
         @click.stop="
-          fan = !fan;
+          fan_status = !fan_status;
           fanSocket();
         "
       >
-        <v-icon v-if="fan == false">mdi-fan-off</v-icon>
-        <v-icon color="blue-grey" v-if="fan == true">mdi-fan</v-icon>
+        <v-icon v-if="fan_status == false">mdi-fan-off</v-icon>
+        <v-icon color="blue-grey" v-if="fan_status == true">mdi-fan</v-icon>
       </v-btn>
     </v-container>
   </div>
@@ -20,7 +20,7 @@
 export default {
   data() {
     return {
-      fan: false,
+      fan_status: false,
     };
   },
 
@@ -34,15 +34,20 @@ export default {
     },
 
     // Fired when the server sends something on the "messageChannel" channel.
-    message(data) {
-      this.socketMessage = data;
+    fan(data) {
+      this.fan_status = data;
     },
   },
 
   methods: {
     fanSocket() {
-      this.$socket.client.emit('fan', this.fan);
+      this.$socket.client.emit('fan', this.fan_status);
     },
+  },
+  created() {
+    this.$socket.$subscribe('fan', (data) => {
+      console.log(data);
+    });
   },
 };
 </script>
