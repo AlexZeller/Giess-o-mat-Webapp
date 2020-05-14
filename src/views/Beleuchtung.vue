@@ -38,16 +38,38 @@
             :items="light_auto_modes"
             flat
           ></v-select>
-          <v-subheader v-if="(light_auto_mode == 'Zeitsteuerung') & light_auto"
-            ><v-icon>mdi-information-outline</v-icon> Schaltet die Beleuchtung
-            täglich zu den gewählten Zeitpunken ein- bzw aus.</v-subheader
-          >
+          <v-row>
+            <v-col cols="12" class="d-flex pl-4 pt-0 pb-0">
+              <v-subheader
+                class="pa-0 pb-2 caption"
+                v-if="(light_auto_mode == 'Zeitsteuerung') & light_auto"
+                ><v-icon small class="pr-2">mdi-information-outline</v-icon>
+                Schaltet die Beleuchtung täglich zu den gewählten Zeitpunken
+                ein- bzw aus.</v-subheader
+              >
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" class="d-flex pl-4 pt-0 pb-0">
+              <v-subheader
+                class="pa-0 pb-2 mt-4 mb-4 caption"
+                v-if="
+                  (light_auto_mode == 'Zeit- und Helligkeitssteuerung') &
+                    light_auto
+                "
+                ><v-icon small class="pr-2">mdi-information-outline</v-icon> In
+                einem gewählten Zeitraum wird die Beleuchtung eingeschaltet,
+                sobald die natürliche Beleuchtungsstärke unter einen
+                festgelegten Schwellwert fällt.</v-subheader
+              >
+            </v-col>
+          </v-row>
           <v-dialog
             ref="start_time_dialog"
             v-model="start_time_modal"
             :return-value.sync="start_time"
             persistent
-            v-if="(light_auto_mode == 'Zeitsteuerung') & light_auto"
+            v-if="light_auto"
           >
             <template v-slot:activator="{ on }">
               <v-text-field
@@ -81,7 +103,7 @@
             v-model="end_time_modal"
             :return-value.sync="end_time"
             persistent
-            v-if="(light_auto_mode == 'Zeitsteuerung') & light_auto"
+            v-if="light_auto"
           >
             <template v-slot:activator="{ on }">
               <v-text-field
@@ -110,6 +132,16 @@
               >
             </v-time-picker>
           </v-dialog>
+          <v-select
+            prepend-icon="mdi-white-balance-sunny"
+            label="Minimale Beleuchtungsstärke [Lux]"
+            v-if="
+              light_auto & (light_auto_mode == 'Zeit- und Helligkeitssteuerung')
+            "
+            v-model="lux_threshold"
+            :items="lux_thresholds"
+            flat
+          ></v-select>
 
           <!--           <v-expansion-panels v-if="light_auto" flat class="pa-0">
             <v-expansion-panel>
@@ -154,15 +186,13 @@ export default {
     light_mode: 'Manuell',
     light_auto: false,
     light_auto_mode: 'Zeit- und Helligkeitssteuerung',
-    light_auto_modes: [
-      'Zeitsteuerung',
-      'Helligkeitssteuerung',
-      'Zeit- und Helligkeitssteuerung',
-    ],
+    light_auto_modes: ['Zeitsteuerung', 'Zeit- und Helligkeitssteuerung'],
     start_time: null,
     start_time_modal: false,
     end_time: null,
     end_time_modal: false,
+    lux_threshold: 5000,
+    lux_thresholds: [500, 1000, 2000, 3000, 4000, 5000],
     loader: null,
     save_button_loader: null,
   }),
