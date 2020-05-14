@@ -208,10 +208,16 @@ export default {
   },
   sockets: {
     connect() {
-      console.log('socket connected');
+      console.log('Giess-o-mat-SocketServer connected');
+      this.$socket.client.emit('light', 'status');
     },
     disconnect() {
-      console.log('socket disonnected');
+      console.log('Giess-o-mat-SocketServer socket disonnected');
+    },
+
+    // Fired when the server sends something on the "fan" channel.
+    light(data) {
+      this.light_status = data;
     },
   },
   methods: {
@@ -225,6 +231,11 @@ export default {
         return 'An';
       }
     },
+  },
+  created() {
+    this.$socket.$subscribe('light', (data) => {
+      console.log(data);
+    });
   },
 };
 </script>
