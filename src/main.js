@@ -5,7 +5,7 @@ import vuetify from './plugins/vuetify';
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client';
 
-const socket = io('http://192.168.0.235:5000');
+const socket = io('http://192.168.1.149:5000');
 
 Vue.use(VueSocketIOExt, socket);
 
