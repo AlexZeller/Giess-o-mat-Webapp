@@ -26,17 +26,27 @@ export default {
   }),
   sockets: {
     connect() {
-      console.log('socket connected');
+      console.log('Giess-o-mat-SocketServer connected');
+      this.$socket.client.emit('irrigation', 'status');
     },
 
     disconnect() {
-      console.log('socket disonnected');
+      console.log('Giess-o-mat-SocketServer disonnected');
+    },
+    // Fired when the server sends something on the "fan" channel.
+    irrigation(data) {
+      this.irrigation_status = data;
     },
   },
   methods: {
     irrigationSocket() {
       this.$socket.client.emit('irrigation', this.irrigation_status);
     },
+  },
+  created() {
+    this.$socket.$subscribe('irrigation', (data) => {
+      console.log(data);
+    });
   },
 };
 </script>

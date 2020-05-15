@@ -23,7 +23,7 @@
                 <v-col col="6" class="pl-0">
                   <v-card-title
                     class="grey--text text--darken-2 d-flex justify-space-between "
-                    >26°C</v-card-title
+                    >{{ sensordata.air_temp }}°C</v-card-title
                   >
                 </v-col>
               </v-row>
@@ -50,7 +50,7 @@
                 <v-col col="6" class="pl-0">
                   <v-card-title
                     class="grey--text text--darken-2 d-flex justify-space-between "
-                    >60 %</v-card-title
+                    >{{ sensordata.air_humid }} %</v-card-title
                   >
                 </v-col>
               </v-row>
@@ -77,7 +77,7 @@
                 <v-col col="6" class="pl-0">
                   <v-card-title
                     class="grey--text text--darken-2 d-flex justify-space-between "
-                    >40 %</v-card-title
+                    >{{ sensordata.soil_humid }} %</v-card-title
                   >
                 </v-col>
               </v-row>
@@ -102,7 +102,7 @@
                 <v-col col="6" class="pl-0">
                   <v-card-title
                     class="grey--text text--darken-2 d-flex justify-space-between "
-                    >20°C</v-card-title
+                    >{{ sensordata.soil_temp }}°C</v-card-title
                   >
                 </v-col>
               </v-row>
@@ -129,7 +129,7 @@
                 <v-col col="6" class="pl-0">
                   <v-card-title
                     class="grey--text text--darken-2 d-flex justify-space-between "
-                    >3500 Lux</v-card-title
+                    >{{ sensordata.lux }} Lux</v-card-title
                   >
                 </v-col>
               </v-row>
@@ -276,7 +276,7 @@
                 <v-col col="6" class="pa-0">
                   <v-card-title
                     class="grey--text text--darken-2 d-flex justify-space-between pa-3 pt-4"
-                    >60 %</v-card-title
+                    >{{ sensordata.waterlevel }} %</v-card-title
                   >
                 </v-col>
               </v-row>
@@ -290,6 +290,7 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios';
 
 export default {
   name: 'Dashboard',
@@ -298,14 +299,35 @@ export default {
     irrigation_status: false,
     fan_status: false,
     water_level: 0,
-    air_t: 0,
-    air_rh: 0,
-    soil_vh: 0,
-    soil_t: 0,
-    lux: 0,
+    sensordata: null,
     light_mode: 'Manuell',
     fan_mode: 'Manuell',
     irrigation_mode: 'Manuell',
   }),
+  sockets: {
+    connect() {
+      console.log('Giess-o-mat-SocketServer connected');
+      this.$socket.client.emit('light', 'status');
+      this.$socket.client.emit('fan', 'status');
+      this.$socket.client.emit('irrigation', 'status');
+    },
+    disconnect() {
+      console.log('Giess-o-mat-SocketServer disonnected');
+    },
+    irrigation(data) {
+      this.irrigation_status = data;
+    },
+    light(data) {
+      this.light_status = data;
+    },
+    fan(data) {
+      this.fan_status = data;
+    },
+  },
+  mounted() {
+    axios
+      .get(process.env.VUE_APP_ROOT_API + '/sensordata/current')
+      .then((response) => (this.sensordata = response.data));
+  },
 };
 </script>

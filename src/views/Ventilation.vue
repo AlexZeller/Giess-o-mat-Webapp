@@ -26,14 +26,15 @@ export default {
 
   sockets: {
     connect() {
-      console.log('socket connected');
+      console.log('Giess-o-mat-SocketServer connected');
+      this.$socket.client.emit('fan', 'status');
     },
 
     disconnect() {
-      console.log('socket disonnected');
+      console.log('Giess-o-mat-SocketServer disonnected');
     },
 
-    // Fired when the server sends something on the "messageChannel" channel.
+    // Fired when the server sends something on the "fan" channel.
     fan(data) {
       this.fan_status = data;
     },
