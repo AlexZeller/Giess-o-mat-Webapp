@@ -27,7 +27,6 @@ export default {
   sockets: {
     connect() {
       console.log('Giess-o-mat-SocketServer connected');
-      this.$socket.client.emit('fan', 'status');
     },
 
     disconnect() {
@@ -49,6 +48,9 @@ export default {
     this.$socket.$subscribe('fan', (data) => {
       console.log(data);
     });
+  },
+  mounted() {
+      this.$socket.client.emit('fan', 'status');
   },
 };
 </script>

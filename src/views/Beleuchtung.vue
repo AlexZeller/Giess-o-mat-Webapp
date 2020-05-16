@@ -209,7 +209,6 @@ export default {
   sockets: {
     connect() {
       console.log('Giess-o-mat-SocketServer connected');
-      this.$socket.client.emit('light', 'status');
     },
     disconnect() {
       console.log('Giess-o-mat-SocketServer socket disonnected');
@@ -236,6 +235,9 @@ export default {
     this.$socket.$subscribe('light', (data) => {
       console.log(data);
     });
+  },
+    mounted() {
+      this.$socket.client.emit('light', 'status');
   },
 };
 </script>

@@ -299,7 +299,7 @@ export default {
     irrigation_status: false,
     fan_status: false,
     water_level: 0,
-    sensordata: null,
+    sensordata: [],
     light_mode: 'Manuell',
     fan_mode: 'Manuell',
     irrigation_mode: 'Manuell',
@@ -328,6 +328,9 @@ export default {
     axios
       .get(process.env.VUE_APP_ROOT_API + '/sensordata/current')
       .then((response) => (this.sensordata = response.data));
+    this.$socket.client.emit('light', 'status');
+    this.$socket.client.emit('fan', 'status');
+    this.$socket.client.emit('irrigation', 'status');
   },
 };
 </script>
