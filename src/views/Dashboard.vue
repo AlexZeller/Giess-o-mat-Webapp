@@ -136,6 +136,31 @@
             </v-container>
           </v-card>
         </v-col>
+        <v-col lg="3" sm="6" cols="12">
+          <v-card color="light-green lighten-5">
+            <v-container fluid class="pa-0 ">
+              <v-row class="justify-center ">
+                <v-card-subtitle class="pb-0">Wasserstand</v-card-subtitle>
+              </v-row>
+              <v-row>
+                <v-col col="6" class="d-flex justify-end "
+                  ><v-icon
+                    x-large
+                    class="d-flex justify-center align-center pa-0 pr-3"
+                  >
+                    mdi-car-coolant-level
+                  </v-icon>
+                </v-col>
+                <v-col col="6" class="pl-0">
+                  <v-card-title
+                    class="grey--text text--darken-2 d-flex justify-space-between  pt-4"
+                    >{{ sensordata.waterlevel }} %</v-card-title
+                  >
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-col>
       </v-row>
       <v-row justify="center" class="pt-4 font-weight-bold title">
         <p class="text-center">Status</p>
@@ -252,31 +277,6 @@
                     class="d-flex justify-center align-center"
                     v-if="irrigation_status == false"
                     >mdi-water-pump-off</v-icon
-                  >
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card>
-        </v-col>
-        <v-col lg="3" sm="6" cols="12">
-          <v-card color="light-green lighten-3">
-            <v-container fluid class="pa-0 ">
-              <v-row class="justify-center ">
-                <v-card-subtitle class="pb-0">Wasserstand</v-card-subtitle>
-              </v-row>
-              <v-row>
-                <v-col col="6" class="d-flex justify-end pa-0"
-                  ><v-icon
-                    x-large
-                    class="d-flex justify-center align-center pa-0 pr-6"
-                  >
-                    mdi-car-coolant-level
-                  </v-icon>
-                </v-col>
-                <v-col col="6" class="pa-0">
-                  <v-card-title
-                    class="grey--text text--darken-2 d-flex justify-space-between pa-3 pt-4"
-                    >{{ sensordata.waterlevel }} %</v-card-title
                   >
                 </v-col>
               </v-row>
