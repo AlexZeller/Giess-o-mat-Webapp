@@ -8,6 +8,7 @@
         :items="sensors"
         v-model="sensor"
         v-on:change="getChartData"
+        class="pb-4"
       >
       </v-select>
       <TrendChart
@@ -16,6 +17,28 @@
         :color="graph_color"
         ref="TrendChart"
       />
+      <v-container class="d-flex pt-6 justify-center">
+        <v-btn-toggle
+          v-model="graph_hours"
+          v-on:change="getChartData"
+          mandatory
+          borderless
+          color="primary"
+        >
+          <v-btn small value="6">
+            6
+          </v-btn>
+          <v-btn small value="12">
+            12
+          </v-btn>
+          <v-btn small value="24">
+            24
+          </v-btn>
+          <v-btn small value="48">
+            48
+          </v-btn>
+        </v-btn-toggle>
+      </v-container>
     </v-container>
   </div>
 </template>
@@ -30,7 +53,7 @@ export default {
   data: () => ({
     graph_color: 'rgba(3, 107, 252)',
     graph_label: 'Lufttemperatur in °C',
-    graph_hours: 24,
+    graph_hours: '24',
     sensor: 'air_temp',
     sensors: [
       {
@@ -60,7 +83,7 @@ export default {
     ],
   }),
   mounted() {
-    this.$refs.TrendChart.getChartData(this.sensor, this.graph_hours);
+    this.$refs.TrendChart.getChartData(this.sensor, parseInt(this.graph_hours));
   },
   methods: {
     getChartData: function() {
