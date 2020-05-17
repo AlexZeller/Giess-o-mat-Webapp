@@ -174,8 +174,18 @@
     </v-container>
     <v-dialog v-model="dialog">
       <v-card>
-        <v-card-title class="subtitle-1"
+        <v-card-title v-if="this.save_success == 'success'" class="subtitle-2"
           >Ihre Einstellungen wurden erfolgreich übertragen.</v-card-title
+        >
+        <v-card-title
+          v-if="this.save_success == 'server_failed'"
+          class="subtitle-2"
+          >Fehler beim Übertragen der Einstellungen (Interner Server
+          Fehler).</v-card-title
+        >
+        <v-card-title v-if="this.save_success == 'failed'" class="subtitle-2"
+          >Fehler beim Übertragen der Einstellungen
+          (Verbindungsfehler)</v-card-title
         >
 
         <v-card-actions>
@@ -209,6 +219,7 @@ export default {
     lux_thresholds: [500, 1000, 2000, 3000, 4000, 5000],
     save_button_loader: false,
     dialog: false,
+    save_success: 'success',
   }),
   sockets: {
     connect() {
@@ -249,8 +260,23 @@ export default {
             },
           }
         )
-        .then((response) => console.log(response.status))
-        .then(((this.save_button_loader = false), (this.dialog = true)));
+        .then((response) => {
+          if (response.status == 200) {
+            (this.save_button_loader = false),
+              (this.dialog = true),
+              (this.save_success = 'success');
+          } else if (response.status == 500) {
+            (this.save_button_loader = false),
+              (this.dialog = true),
+              (this.save_success = 'server_failed');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          (this.save_button_loader = false),
+            (this.dialog = true),
+            (this.save_success = 'failed');
+        });
     },
   },
   created() {
