@@ -164,20 +164,34 @@
           <v-btn
             class="ma-2"
             :loading="save_button_loader"
-            :disabled="save_button_loader"
             color="primary"
-            @click="loader = 'save_button_loader'"
+            @click="sendSettings()"
           >
             Speichern
           </v-btn>
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog v-model="dialog">
+      <v-card>
+        <v-card-title class="subtitle-1"
+          >Ihre Einstellungen wurden erfolgreich übertragen.</v-card-title
+        >
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="dialog = false">
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import axios from 'axios';
 
 export default {
   name: 'Beleuchtung',
@@ -193,19 +207,9 @@ export default {
     end_time_modal: false,
     lux_threshold: 5000,
     lux_thresholds: [500, 1000, 2000, 3000, 4000, 5000],
-    loader: null,
-    save_button_loader: null,
+    save_button_loader: false,
+    dialog: false,
   }),
-  watch: {
-    loader() {
-      const l = this.loader;
-      this[l] = !this[l];
-
-      setTimeout(() => (this[l] = false), 3000);
-
-      this.loader = null;
-    },
-  },
   sockets: {
     connect() {
       console.log('Giess-o-mat-SocketServer connected');
@@ -223,12 +227,30 @@ export default {
     lightSocket() {
       this.$socket.client.emit('light', this.light_status);
     },
-    isAuto() {
-      if (this.light_auto == false) {
-        return 'Aus';
-      } else {
-        return 'An';
-      }
+    constructJSON() {
+      var light_setttings = {
+        auto: this.light_auto,
+        mode: this.light_auto_mode,
+        start_time: this.start_time,
+        end_time: this.end_time,
+        lux_threshold: this.lux_threshold,
+      };
+      return JSON.stringify(light_setttings);
+    },
+    sendSettings() {
+      this.save_button_loader = true;
+      axios
+        .post(
+          process.env.VUE_APP_ROOT_API + '/settings/light',
+          this.constructJSON(),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        .then((response) => console.log(response.status))
+        .then(((this.save_button_loader = false), (this.dialog = true)));
     },
   },
   created() {
@@ -236,8 +258,8 @@ export default {
       console.log(data);
     });
   },
-    mounted() {
-      this.$socket.client.emit('light', 'status');
+  mounted() {
+    this.$socket.client.emit('light', 'status');
   },
 };
 </script>
