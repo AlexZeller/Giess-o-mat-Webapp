@@ -48,7 +48,7 @@
           </v-list-item>
           <v-list-item @click="drawer = false" :to="{ path: '/bewaesserung' }">
             <v-list-item-icon>
-              <v-icon>mdi-sprinkler-variant</v-icon>
+              <v-icon>mdi-water-pump</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Bewässerung</v-list-item-title>
           </v-list-item>
