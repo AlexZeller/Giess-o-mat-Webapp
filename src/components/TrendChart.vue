@@ -18,6 +18,10 @@ export default {
       type: String,
       default: null,
     },
+    color: {
+      type: String,
+      default: null,
+    },
   },
   components: { LineChart },
   data: () => ({
@@ -70,10 +74,10 @@ export default {
         labels: this.getTimesArray(this.Data),
         datasets: [
           {
-            label: 'Lufttemperatur in °C',
+            label: this.label,
             fill: false,
             data: this.getDataArray(this.Data),
-            borderColor: ['rgba(3, 107, 252)'],
+            borderColor: [this.color],
           },
         ],
       };
