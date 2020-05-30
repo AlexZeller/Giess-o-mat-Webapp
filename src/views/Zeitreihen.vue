@@ -25,17 +25,17 @@
           borderless
           color="primary"
         >
-          <v-btn small value="6">
-            6
-          </v-btn>
           <v-btn small value="12">
             12
           </v-btn>
           <v-btn small value="24">
             24
           </v-btn>
-          <v-btn small value="48">
-            48
+          <v-btn small value="72">
+            3T
+          </v-btn>
+          <v-btn small value="168">
+            7T
           </v-btn>
         </v-btn-toggle>
       </v-container>
