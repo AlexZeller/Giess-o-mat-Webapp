@@ -58,13 +58,49 @@
             </v-list-item-icon>
             <v-list-item-title>Ventilation</v-list-item-title>
           </v-list-item>
-          <v-list-item @click="drawer = false" :to="{ path: '/einstellungen' }">
-            <v-list-item-icon>
-              <v-icon>mdi-cogs</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Einstellungen</v-list-item-title>
-          </v-list-item>
         </v-list-item-group>
+        <v-list-group prepend-icon="mdi-cogs" no-action color="">
+          <template v-slot:activator>
+            <v-list-item-title>Einstellungen</v-list-item-title>
+          </template>
+
+          <v-list-item
+            active-class="light-green darken-1--text text--accent-4"
+            @click="drawer = false"
+            :to="{ path: '/beleuchtungseinstellungen' }"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-lightbulb</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Beleuchtung</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+            active-class="light-green darken-1--text text--accent-4"
+            @click="drawer = false"
+            :to="{ path: '/bewaesserungseinstellungen' }"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-water-pump</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Bewässerung</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+            active-class="light-green darken-1--text text--accent-4"
+            @click="drawer = false"
+            :to="{ path: '/ventilationseinstellungen' }"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-fan</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Ventilation</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
       </v-list>
     </v-navigation-drawer>
 
