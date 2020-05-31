@@ -44,7 +44,7 @@
                     x-large
                     class="d-flex justify-center align-center pr-6"
                   >
-                    mdi-waves
+                    mdi-weather-windy
                   </v-icon>
                 </v-col>
                 <v-col col="6" class="pl-0">
