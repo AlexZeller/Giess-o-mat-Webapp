@@ -18,18 +18,49 @@
           >
         </v-btn>
       </v-row>
+      <v-row justify="center" class="pa-3">
+        <v-subheader>Einstellungen</v-subheader>
+      </v-row>
+      <v-row
+        ><v-col cols="6" class="overline"><p>Modus:</p></v-col
+        ><v-col class="body-2"
+          ><p>{{ light_settings.mode }}</p></v-col
+        >
+      </v-row>
+      <v-row v-if="light_settings.mode != 'Manuell'" class="body-2"
+        ><v-col cols="6" class="overline"><p>Einschalt-Zeit:</p></v-col
+        ><v-col class="body-2"
+          ><p>{{ light_settings.start_time }}</p></v-col
+        >
+      </v-row>
+      <v-row v-if="light_settings.mode != 'Manuell'" class="body-2"
+        ><v-col cols="6" class="overline"><p>Ausschalt-Zeit:</p></v-col
+        ><v-col class="body-2"
+          ><p>{{ light_settings.end_time }}</p></v-col
+        >
+      </v-row>
+      <v-row
+        v-if="light_settings.mode == 'Zeit- und Helligkeitssteuerung'"
+        class="body-2"
+        ><v-col cols="6" class="overline"
+          ><p>Minimale Beleuchtungsstärke:</p></v-col
+        ><v-col class="body-2"
+          ><p>{{ light_settings.lux_threshold }}</p></v-col
+        >
+      </v-row>
     </v-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-//import axios from 'axios';
+import axios from 'axios';
 
 export default {
   name: 'Beleuchtung',
   data: () => ({
     light_status: false,
+    light_settings: null,
   }),
   sockets: {
     connect() {
@@ -56,6 +87,9 @@ export default {
   },
   mounted() {
     this.$socket.client.emit('light', 'status');
+    axios
+      .get(process.env.VUE_APP_ROOT_API + '/settings/light')
+      .then((response) => (this.light_settings = response.data));
   },
 };
 </script>
