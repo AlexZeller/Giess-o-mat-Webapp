@@ -91,7 +91,7 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 v-model="start_time"
-                label="Einschalt-Zeit"
+                label="Beginn Nachtruhe"
                 prepend-icon="mdi-clock-outline"
                 readonly
                 v-on="on"
@@ -125,7 +125,7 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 v-model="end_time"
-                label="Ausschalt-Zeit"
+                label="Ende Nachtruhe"
                 prepend-icon="mdi-clock-outline"
                 readonly
                 v-on="on"
@@ -193,6 +193,7 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios';
 
 export default {
   name: 'VentilationEinstellungen',
@@ -266,5 +267,48 @@ export default {
     dialog: false,
     save_success: 'success',
   }),
+  methods: {
+    constructJSON() {
+      var ventilation_setttings = {
+        mode: this.ventilation_mode,
+        start_time: this.start_time,
+        end_time: this.end_time,
+        Ta_max: this.ta_threshold,
+        Rh_max: this.rh_threshold,
+        mode_ventilation_stop: this.mode_ventilation_stop,
+      };
+      return JSON.stringify(ventilation_setttings);
+    },
+    sendSettings() {
+      this.save_button_loader = true;
+      axios
+        .post(
+          process.env.VUE_APP_ROOT_API + '/settings/ventilation',
+          this.constructJSON(),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        .then((response) => {
+          if (response.status == 200) {
+            (this.save_button_loader = false),
+              (this.dialog = true),
+              (this.save_success = 'success');
+          } else if (response.status == 500) {
+            (this.save_button_loader = false),
+              (this.dialog = true),
+              (this.save_success = 'server_failed');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          (this.save_button_loader = false),
+            (this.dialog = true),
+            (this.save_success = 'failed');
+        });
+    },
+  },
 };
 </script>
