@@ -21,7 +21,7 @@
                 v-if="irrigation_mode == 'Zeitsteuerung'"
                 ><v-icon small class="pr-2">mdi-information-outline</v-icon>
                 Schaltet die Bewässerung zu den augewählten Zeiten und
-                Parametern ein</v-subheader
+                Parametern ein.</v-subheader
               >
             </v-col>
           </v-row>
@@ -31,8 +31,8 @@
                 class="pa-0 pb-2 caption"
                 v-if="irrigation_mode == 'Bodenfeuchtesteuerung'"
                 ><v-icon small class="pr-2">mdi-information-outline</v-icon>
-                Schaltet die Bewässerung, sobald die Bodenfeuchte den
-                Schwellwert unterschreitet.</v-subheader
+                Schaltet die Bewässerung ein, sobald die Bodenfeuchte den
+                Schwellwert unterschreitet. Max.3 pro Tag.</v-subheader
               >
             </v-col>
           </v-row>
@@ -49,9 +49,23 @@
             </v-col>
           </v-row>
           <v-select
+            prepend-icon="mdi-water-percent"
+            label="Schwellwert Bodenfeuchte"
+            v-if="
+              irrigation_mode == 'Zeit- und Bodenfeuchtesteuerung' ||
+                irrigation_mode == 'Bodenfeuchtesteuerung'
+            "
+            v-model="humidity_threshold"
+            :items="humidity_thresholds"
+            flat
+          ></v-select>
+          <v-select
             prepend-icon="mdi-counter"
             label="Interval Bewässerung in Tagen"
-            v-if="irrigation_mode != 'Manuell'"
+            v-if="
+              irrigation_mode != 'Manuell' &&
+                irrigation_mode != 'Bodenfeuchtesteuerung'
+            "
             v-model="irrigation_interval"
             :items="irrigation_interval_list"
             flat
@@ -59,7 +73,11 @@
           <v-select
             prepend-icon="mdi-format-list-numbered"
             label="Anzahl Bewässerungen"
-            v-if="irrigation_mode != 'Manuell' && irrigation_interval == 1"
+            v-if="
+              irrigation_mode != 'Manuell' &&
+                irrigation_mode != 'Bodenfeuchtesteuerung' &&
+                irrigation_interval == 1
+            "
             v-model="irrigation_number_of_times"
             :items="irrigation_number_of_times_list"
             flat
@@ -75,7 +93,10 @@
 
           <v-dialog
             ref="irrigation_time_1_dialog"
-            v-if="irrigation_mode != 'Manuell'"
+            v-if="
+              irrigation_mode != 'Manuell' &&
+                irrigation_mode != 'Bodenfeuchtesteuerung'
+            "
             v-model="irrigation_time_1_modal"
             :return-value.sync="irrigation_time_1"
             persistent
@@ -113,9 +134,10 @@
           <v-dialog
             ref="irrigation_time_2_dialog"
             v-if="
-              irrigation_number_of_times == 2 ||
-                (irrigation_number_of_times == 3 &&
-                  irrigation_mode != 'Manuell')
+              (irrigation_number_of_times == 2 ||
+                irrigation_number_of_times == 3) &&
+                irrigation_mode != 'Manuell' &&
+                irrigation_interval == 1
             "
             v-model="irrigation_time_2_modal"
             :return-value.sync="irrigation_time_2"
@@ -155,7 +177,9 @@
           <v-dialog
             ref="irrigation_time_3_dialog"
             v-if="
-              irrigation_number_of_times == 3 && irrigation_mode != 'Manuell'
+              irrigation_number_of_times == 3 &&
+                irrigation_mode != 'Manuell' &&
+                irrigation_interval == 1
             "
             v-model="irrigation_time_3_modal"
             :return-value.sync="irrigation_time_3"

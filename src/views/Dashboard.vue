@@ -170,18 +170,10 @@
           <v-card color="light-green lighten-3">
             <v-container fluid class="pa-0">
               <v-row class="justify-center">
-                <v-col col="4" class="pa-0"> </v-col>
-                <v-col col="4" class="pa-0">
+                <v-col col="12" class="pa-0">
                   <v-card-subtitle class="pa-3 text-center"
                     >Beleuchtung</v-card-subtitle
                   >
-                </v-col>
-                <v-col col="4" class="pa-0 pt-2">
-                  <div
-                    class="grey--text text--darken-2 overline justify-end d-flex pr-6"
-                  >
-                    {{ light_mode }}
-                  </div>
                 </v-col>
               </v-row>
               <v-row class="justify-center"> </v-row>
@@ -209,18 +201,10 @@
           <v-card color="light-green lighten-3">
             <v-container fluid class="pa-0">
               <v-row class="justify-center">
-                <v-col col="4" class="pa-0"> </v-col>
-                <v-col col="4" class="pa-0">
+                <v-col col="12" class="pa-0">
                   <v-card-subtitle class="pa-3 text-center"
                     >Ventilation</v-card-subtitle
                   >
-                </v-col>
-                <v-col col="4" class="pa-0 pt-2">
-                  <div
-                    class="grey--text text--darken-2 overline justify-end d-flex pr-6"
-                  >
-                    {{ fan_mode }}
-                  </div>
                 </v-col>
               </v-row>
               <v-row class="justify-center"> </v-row>
@@ -248,18 +232,10 @@
           <v-card color="light-green lighten-3">
             <v-container fluid class="pa-0">
               <v-row class="justify-center">
-                <v-col col="4" class="pa-0"> </v-col>
-                <v-col col="4" class="pa-0">
+                <v-col col="12" class="pa-0">
                   <v-card-subtitle class="pa-3 text-center"
                     >Bewässerung</v-card-subtitle
                   >
-                </v-col>
-                <v-col col="4" class="pa-0 pt-2">
-                  <div
-                    class="grey--text text--darken-2 overline justify-end d-flex pr-6"
-                  >
-                    {{ irrigation_mode }}
-                  </div>
                 </v-col>
               </v-row>
               <v-row class="justify-center"> </v-row>
@@ -300,9 +276,6 @@ export default {
     fan_status: false,
     water_level: 0,
     sensordata: [],
-    light_mode: 'Manuell',
-    fan_mode: 'Manuell',
-    irrigation_mode: 'Manuell',
   }),
   sockets: {
     connect() {
