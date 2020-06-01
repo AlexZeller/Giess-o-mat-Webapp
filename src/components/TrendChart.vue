@@ -45,6 +45,13 @@ export default {
             },
           },
         ],
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
       },
       responsive: true,
       maintainAspectRatio: false,
