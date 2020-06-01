@@ -275,7 +275,7 @@ export default {
     irrigation_number_of_times_list: [1, 2, 3],
     irrigation_interval: 1,
     irrigation_interval_list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    irrigation_duration: 15,
+    irrigation_duration: 10,
     irrigation_duration_list: [5, 10, 20, 30, 40, 50, 60, 120, 240, 360, 480],
     irrigation_time_1: null,
     irrigation_time_1_modal: false,
@@ -311,11 +311,13 @@ export default {
     constructJSON() {
       var ventilation_setttings = {
         mode: this.irrigation_mode,
-        start_time: this.start_time,
-        end_time: this.end_time,
-        Ta_max: this.ta_threshold,
-        Rh_max: this.rh_threshold,
-        mode_ventilation_stop: this.mode_ventilation_stop,
+        interval: this.irrigation_interval,
+        number_irrigations: this.irrigation_number_of_times,
+        duration_irrigation: this.irrigation_duration,
+        irrigation_time_1: this.irrigation_time_1,
+        irrigation_time_2: this.irrigation_time_2,
+        irrigation_time_3: this.irrigation_time_3,
+        humidity_threshold: this.humidity_threshold,
       };
       return JSON.stringify(ventilation_setttings);
     },
@@ -323,7 +325,7 @@ export default {
       this.save_button_loader = true;
       axios
         .post(
-          process.env.VUE_APP_ROOT_API + '/settings/ventilation',
+          process.env.VUE_APP_ROOT_API + '/settings/irrigation',
           this.constructJSON(),
           {
             headers: {

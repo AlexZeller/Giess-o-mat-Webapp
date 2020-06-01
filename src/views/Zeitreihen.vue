@@ -47,7 +47,7 @@
             <v-btn small value="72">
               3T
             </v-btn>
-            <v-btn small value="168">
+            <v-btn small value="1680">
               7T
             </v-btn>
           </v-btn-toggle>
