@@ -84,7 +84,7 @@
           ></v-select>
           <v-select
             prepend-icon="mdi-timer"
-            label="Dauer Bewässerungen [s]"
+            label="Dauer Bewässerung [s]"
             v-if="irrigation_mode != 'Manuell'"
             v-model="irrigation_duration"
             :items="irrigation_duration_list"

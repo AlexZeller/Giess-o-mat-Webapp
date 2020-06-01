@@ -22,7 +22,7 @@
       <v-row
         ><v-col cols="6" class="body-2 text--secondary pt-0 pb-0"
           ><p>Modus:</p></v-col
-        ><v-col class="body-2 pt-0 pb-0"
+        ><v-col cols="6" class="body-2 pt-0 pb-0"
           ><p>{{ ventilation_settings.mode }}</p></v-col
         >
       </v-row>
@@ -35,7 +35,7 @@
         class="body-2 "
         ><v-col cols="6" class="body-2 text--secondary pt-0 pb-0"
           ><p>Schwellenwert Lufttemperatur:</p></v-col
-        ><v-col class="body-2 pt-0 pb-0"
+        ><v-col cols="6" class="body-2 pt-0 pb-0"
           ><p>{{ ventilation_settings.Ta_max }} °C</p></v-col
         >
       </v-row>
@@ -49,13 +49,13 @@
         ><v-col cols="6" class="body-2 text--secondary pt-0 pb-0"
           ><p>Schwellenwert Luftfeuchte:</p></v-col
         ><v-col class="body-2 pt-0 pb-0"
-          ><p>{{ ventilation_settings.Rh_max }} °C</p></v-col
+          ><p>{{ ventilation_settings.Rh_max }} %</p></v-col
         >
       </v-row>
       <v-row v-if="ventilation_settings.mode != 'Manuell'" class="body-2 "
         ><v-col cols="6" class="body-2 text--secondary pt-0 pb-0"
           ><p>Nachtruhe:</p></v-col
-        ><v-col class="body-2 pt-0 pb-0"
+        ><v-col cols="6" class="body-2 pt-0 pb-0"
           ><v-icon v-if="ventilation_settings.mode_ventilation_stop"
             >mdi-check</v-icon
           ><v-icon v-else>mdi-minus</v-icon></v-col
@@ -69,8 +69,8 @@
         class="body-2 "
         ><v-col cols="6" class="body-2 text--secondary pt-0 pb-0"
           ><p>Beginn Nachtruhe:</p></v-col
-        ><v-col class="body-2 pt-0 pb-0"
-          ><p>{{ ventilation_settings.start_time }}</p></v-col
+        ><v-col cols="6" class="body-2 pt-0 pb-0"
+          ><p>{{ ventilation_settings.start_time }} Uhr</p></v-col
         >
       </v-row>
       <v-row
@@ -81,8 +81,8 @@
         class="body-2"
         ><v-col cols="6" class="body-2 text--secondary pt-0 pb-0"
           ><p>Ende Nachtruhe:</p></v-col
-        ><v-col class="body-2 pt-0 pb-0"
-          ><p>{{ ventilation_settings.end_time }}</p></v-col
+        ><v-col cols="6" class="body-2 pt-0 pb-0"
+          ><p>{{ ventilation_settings.end_time }} Uhr</p></v-col
         >
       </v-row>
     </v-container>

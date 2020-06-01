@@ -24,22 +24,22 @@
       <v-row
         ><v-col cols="6" class="body-2 text--secondary pt-0 pb-0"
           ><p>Modus:</p></v-col
-        ><v-col class="body-2 pt-0 pb-0"
+        ><v-col cols="6" class="body-2 pt-0 pb-0"
           ><p>{{ light_settings.mode }}</p></v-col
         >
       </v-row>
       <v-row v-if="light_settings.mode != 'Manuell'" class="body-2 "
         ><v-col cols="6" class="body-2 text--secondary pt-0 pb-0"
           ><p>Einschalt-Zeit:</p></v-col
-        ><v-col class="body-2 pt-0 pb-0"
-          ><p>{{ light_settings.start_time }}</p></v-col
+        ><v-col cols="6" class="body-2 pt-0 pb-0"
+          ><p>{{ light_settings.start_time }} Uhr</p></v-col
         >
       </v-row>
       <v-row v-if="light_settings.mode != 'Manuell'" class="body-2"
         ><v-col cols="6" class="body-2 text--secondary pt-0 pb-0"
           ><p>Ausschalt-Zeit:</p></v-col
-        ><v-col class="body-2 pt-0 pb-0"
-          ><p>{{ light_settings.end_time }}</p></v-col
+        ><v-col cols="6" class="body-2 pt-0 pb-0"
+          ><p>{{ light_settings.end_time }} Uhr</p></v-col
         >
       </v-row>
       <v-row
@@ -48,7 +48,7 @@
         ><v-col cols="6" class="body-2 text--secondary"
           ><p>Minimale Beleuchtungsstärke:</p></v-col
         ><v-col class="body-2"
-          ><p>{{ light_settings.lux_threshold }}</p></v-col
+          ><p>{{ light_settings.lux_threshold }} Lux</p></v-col
         >
       </v-row>
     </v-container>
