@@ -26,9 +26,9 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12" class="d-flex pl-4 pt-0 pb-0">
+            <v-col cols="12" class="d-flex pl-4 pt-0 pb-2">
               <v-subheader
-                class="pa-0 pb-2 caption"
+                class="pa-0 pb-2 mb-4 caption"
                 v-if="irrigation_mode == 'Bodenfeuchtesteuerung'"
                 ><v-icon small class="pr-2">mdi-information-outline</v-icon>
                 Schaltet die Bewässerung ein, sobald die Bodenfeuchte den
@@ -39,7 +39,7 @@
           <v-row>
             <v-col cols="12" class="d-flex pl-4 pt-0 pb-0">
               <v-subheader
-                class="pa-0 pb-2 mt-4 mb-4 caption"
+                class="pa-0 pb-2 mb-4 caption"
                 v-if="irrigation_mode == 'Zeit- und Bodenfeuchtesteuerung'"
                 ><v-icon small class="pr-2">mdi-information-outline</v-icon>
                 Prüft zu den gewählten Zeitpunken die Bodenfeuchte und schaltet
