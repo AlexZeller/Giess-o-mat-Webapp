@@ -107,7 +107,7 @@ export default {
         this.graph_label = 'Beleuchtungsstärke in Lux';
         this.graph_color = 'rgba(235, 183, 52)';
       } else if (this.sensor == 'waterlevel') {
-        this.graph_label = 'Wasserstand in weißichnicht';
+        this.graph_label = 'Wasserstand in %';
         this.graph_color = 'rgba(67, 52, 235)';
       }
     },
