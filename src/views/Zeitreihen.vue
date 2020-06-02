@@ -17,27 +17,41 @@
         :color="graph_color"
         ref="TrendChart"
       />
-      <v-container class="d-flex pt-6 justify-center">
-        <v-btn-toggle
-          v-model="graph_hours"
-          v-on:change="getChartData"
-          mandatory
-          borderless
-          color="primary"
-        >
-          <v-btn small value="6">
-            6
-          </v-btn>
-          <v-btn small value="12">
-            12
-          </v-btn>
-          <v-btn small value="24">
-            24
-          </v-btn>
-          <v-btn small value="48">
-            48
-          </v-btn>
-        </v-btn-toggle>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="6" class="d-flex justify-center">
+            <v-chip :color="graph_color" small text-color="white">
+              Minimum: {{ graph_min_value }}
+            </v-chip>
+          </v-col>
+          <v-col cols="6" class="d-flex justify-center">
+            <v-chip :color="graph_color" small text-color="white">
+              Maximum: {{ graph_max_value }}
+            </v-chip>
+          </v-col>
+        </v-row>
+        <v-row class="justify-center pt-4">
+          <v-btn-toggle
+            v-model="graph_hours"
+            v-on:change="getChartData"
+            mandatory
+            borderless
+            color="primary"
+          >
+            <v-btn small value="12">
+              12
+            </v-btn>
+            <v-btn small value="24">
+              24
+            </v-btn>
+            <v-btn small value="72">
+              3T
+            </v-btn>
+            <v-btn small value="1680">
+              7T
+            </v-btn>
+          </v-btn-toggle>
+        </v-row>
       </v-container>
     </v-container>
   </div>
@@ -46,6 +60,7 @@
 <script>
 // @ is an alias to /src
 import TrendChart from '../components/TrendChart.vue';
+import axios from 'axios';
 
 export default {
   name: 'Zeitreihen',
@@ -54,6 +69,10 @@ export default {
     graph_color: 'rgba(3, 107, 252)',
     graph_label: 'Lufttemperatur in °C',
     graph_hours: '24',
+    graph_max: 0,
+    graph_max_value: 0,
+    graph_min_value: 0,
+    graph_min: 0,
     sensor: 'air_temp',
     sensors: [
       {
@@ -89,6 +108,38 @@ export default {
     getChartData: function() {
       this.getGraphStyling();
       this.$refs.TrendChart.getChartData(this.sensor, this.graph_hours);
+      axios
+        .get(
+          process.env.VUE_APP_ROOT_API +
+            '/sensordata/' +
+            this.sensor +
+            '/' +
+            this.graph_hours +
+            '/max'
+        )
+        .then((response) => (this.graph_max = response.data))
+        .then(() => {
+          let property = 'MAX(' + this.sensor + ')';
+          console.log(property);
+          let extreme = this.graph_max[0][property];
+          this.graph_max_value = extreme;
+        });
+      axios
+        .get(
+          process.env.VUE_APP_ROOT_API +
+            '/sensordata/' +
+            this.sensor +
+            '/' +
+            this.graph_hours +
+            '/min'
+        )
+        .then((response) => (this.graph_min = response.data))
+        .then(() => {
+          let property = 'MIN(' + this.sensor + ')';
+          console.log(property);
+          let extreme = this.graph_min[0][property];
+          this.graph_min_value = extreme;
+        });
     },
     getGraphStyling: function() {
       if (this.sensor == 'air_temp') {
