@@ -128,6 +128,7 @@ export default {
   sockets: {
     connect() {
       console.log('Giess-o-mat-SocketServer connected');
+      this.$socket.client.emit('irrigation', 'status');
     },
 
     disconnect() {

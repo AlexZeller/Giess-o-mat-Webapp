@@ -68,6 +68,7 @@ export default {
   sockets: {
     connect() {
       console.log('Giess-o-mat-SocketServer connected');
+      this.$socket.client.emit('light', 'status');
     },
     disconnect() {
       console.log('Giess-o-mat-SocketServer socket disonnected');
