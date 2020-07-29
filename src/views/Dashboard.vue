@@ -259,6 +259,29 @@
             </v-container>
           </v-card>
         </v-col>
+        <v-col
+          lg="3"
+          sm="6"
+          cols="12"
+          class="d-flex justify-center pr-6 pl-6 pt-4"
+        >
+          <v-container fluid class="pa-0">
+            <v-row>
+              <v-col cols="6" class="pl-6"
+                ><v-row><div class="caption">Letzte Aktualisierung:</div></v-row
+                ><v-row class="caption">{{ sensordata.timestamp }}</v-row>
+              </v-col>
+              <v-col cols="6" class="d-flex justify-end pr-6 pt-0">
+                <v-icon
+                  large
+                  class="d-flex justify-end align-end"
+                  @click.stop="refreshSocket()"
+                  >mdi-refresh</v-icon
+                >
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -295,6 +318,12 @@ export default {
     },
     fan(data) {
       this.fan_status = data;
+    },
+  },
+  methods: {
+    refreshSocket() {
+      this.$socket.client.emit('sensordata', true);
+      console.log('test');
     },
   },
   mounted() {
