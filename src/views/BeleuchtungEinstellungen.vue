@@ -55,6 +55,7 @@
             </template>
             <v-time-picker
               format="24hr"
+              :allowed-minutes="allowedStep"
               v-if="start_time_modal"
               v-model="start_time"
               full-width
@@ -89,6 +90,7 @@
             </template>
             <v-time-picker
               format="24hr"
+              :allowed-minutes="allowedStep"
               v-if="end_time_modal"
               v-model="end_time"
               full-width
@@ -113,21 +115,6 @@
             :items="lux_thresholds"
             flat
           ></v-select>
-
-          <!--           <v-expansion-panels v-if="light_auto" flat class="pa-0">
-            <v-expansion-panel>
-              <v-expansion-panel-header class="subtitle-1 pa-0 "
-                >Automatik-Modus</v-expansion-panel-header
-              >
-              <v-expansion-panel-content>
-                <v-select
-                  v-model="light_auto_mode"
-                  :items="light_auto_modes"
-                  flat
-                ></v-select>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels> -->
         </v-col>
       </v-row>
       <v-row>
@@ -190,6 +177,7 @@ export default {
     save_success: 'success',
   }),
   methods: {
+    allowedStep: m => m % 10 === 0,
     constructJSON() {
       var light_setttings = {
         mode: this.light_mode,

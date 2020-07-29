@@ -98,6 +98,7 @@
               ></v-text-field>
             </template>
             <v-time-picker
+              :allowed-minutes="allowedStep"
               format="24hr"
               v-if="start_time_modal"
               v-model="start_time"
@@ -133,6 +134,7 @@
             </template>
             <v-time-picker
               format="24hr"
+              :allowed-minutes="allowedStep"
               v-if="end_time_modal"
               v-model="end_time"
               full-width
@@ -268,6 +270,7 @@ export default {
     save_success: 'success',
   }),
   methods: {
+    allowedStep: m => m % 10 === 0,
     constructJSON() {
       var ventilation_setttings = {
         mode: this.ventilation_mode,

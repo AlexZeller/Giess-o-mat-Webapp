@@ -112,6 +112,7 @@
             </template>
             <v-time-picker
               format="24hr"
+              :allowed-minutes="allowedStep"
               v-if="irrigation_time_1_modal"
               v-model="irrigation_time_1"
               full-width
@@ -154,6 +155,7 @@
             </template>
             <v-time-picker
               format="24hr"
+              :allowed-minutes="allowedStep"
               v-if="irrigation_time_2_modal"
               v-model="irrigation_time_2"
               full-width
@@ -196,6 +198,7 @@
             </template>
             <v-time-picker
               format="24hr"
+              :allowed-minutes="allowedStep"
               v-if="irrigation_time_3_modal"
               v-model="irrigation_time_3"
               full-width
@@ -308,6 +311,7 @@ export default {
     save_success: 'success',
   }),
   methods: {
+    allowedStep: m => m % 10 === 0,
     constructJSON() {
       var ventilation_setttings = {
         mode: this.irrigation_mode,
