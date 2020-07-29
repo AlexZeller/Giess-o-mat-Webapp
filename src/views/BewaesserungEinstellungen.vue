@@ -311,6 +311,7 @@ export default {
     constructJSON() {
       var ventilation_setttings = {
         mode: this.irrigation_mode,
+        timestamp: Math.round(+new Date()/1000),
         interval: this.irrigation_interval,
         number_irrigations: this.irrigation_number_of_times,
         duration_irrigation: this.irrigation_duration,
@@ -320,6 +321,7 @@ export default {
         humidity_threshold: this.humidity_threshold,
       };
       return JSON.stringify(ventilation_setttings);
+      
     },
     sendSettings() {
       this.save_button_loader = true;
