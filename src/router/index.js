@@ -6,6 +6,7 @@ import Bewaesserung from '../views/Bewaesserung.vue';
 import Ventilation from '../views/Ventilation.vue';
 import Einstellungen from '../views/Einstellungen.vue';
 import Zeitreihen from '../views/Zeitreihen.vue';
+import Log from '../views/Log.vue';
 import VentilationEinstellungen from '../views/VentilationEinstellungen.vue';
 import BeleuchtungEinstellungen from '../views/BeleuchtungEinstellungen.vue';
 import BewaesserungEinstellungen from '../views/BewaesserungEinstellungen.vue';
@@ -42,6 +43,11 @@ const routes = [
     path: '/zeitreihen',
     name: 'Zeitreihen',
     component: Zeitreihen,
+  },
+  {
+    path: '/log',
+    name: 'log',
+    component: Log,
   },
   {
     path: '/beleuchtungseinstellungen',

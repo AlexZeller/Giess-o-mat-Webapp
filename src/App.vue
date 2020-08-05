@@ -20,6 +20,7 @@
     <v-navigation-drawer
       v-model="drawer"
       clipped
+      
       color="grey lighten-4"
       app
       fixed
@@ -57,6 +58,12 @@
               <v-icon>mdi-fan</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Ventilation</v-list-item-title>
+          </v-list-item>
+                    <v-list-item @click="drawer = false" :to="{ path: '/log' }">
+            <v-list-item-icon>
+              <v-icon>mdi-clipboard-list</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Logs</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
         <v-list-group prepend-icon="mdi-cogs" no-action color="">
